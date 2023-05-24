@@ -25,7 +25,16 @@ void delete_first(){
     struct node *new_head = to_delete -> next;
     to_delete->next = NULL;
     head = new_head;
-    printf("Head is %d",head->data);
+    }
+void delete_last(){
+    struct node *to_delete = head;
+    struct node *pointer_remove = head;
+    while (to_delete->next){
+        pointer_remove = to_delete;
+        to_delete = to_delete-> next;
+    }
+    pointer_remove->next = NULL;
+    to_delete->data = NULL;
     }
 
 void insert_at_end(int data){
@@ -42,9 +51,11 @@ void print_list(){
     struct node *p = head;
     printf("\n[");
     while(p){
-        printf("%d, ",p->data);
-        p = p->next;
-    }
+        if(p->next == NULL){
+            printf("%d",p->data);
+        }else{
+        printf("%d, ",p->data);}
+        p = p->next;}
     printf("]\n");
     }
 int isin(int target){
@@ -72,20 +83,40 @@ int first_item(int target){
     else{
         return -1;
     }}
+
 void main(){
     int length;
-    printf("Hello! How long will your list be?\n");
+    printf("How long will your list be?\n");
     scanf("%d",&length);
     for(int i = 0; i<length; i++){
         int thing;
-        printf("Insert number: \n");
+        printf("Insert integer to beginning: \n");
         scanf("%d", &thing);
         insert_at_start(thing);
         }
     print_list();
-    insert_at_end(10);
+
+    int bonus;
+    printf("Enter an integer to insert at the end: \n");
+    scanf("%d",&bonus);
+    insert_at_end(bonus);
     print_list();
-    printf("%d\n",isin(5));
-    printf("%d\n",first_item(5));
+    printf("Enter a number to search for: ");
+    int to_search;
+    scanf("%d",&to_search);
+    if(isin(to_search)==1){
+        printf("%d is in the list.\n",to_search);
+    }else{
+    printf("%d is not in the list.\n",isin(to_search));}
+
+    printf("%d is at index spot %d.",to_search,first_item(to_search));
+    delete_first();
+    printf("Deleted the first item.\n");
+    print_list();
+    delete_last();
+    printf("Deleted the last item.");
+    print_list();
     }
+
+
 
